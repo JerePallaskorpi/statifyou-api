@@ -1,1 +1,3 @@
-statifyou-api
+## Statifyou
+Track your spotify plays.
+

@@ -1,0 +1,21 @@
+{
+  "name": "statifyou-api",
+  "version": "1.0.0",
+  "description": "Spotify play stats",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Jere Pallaskorpi",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "path": "^0.12.7",
+    "request": "^2.88.0"
+  },
+  "engines": {
+    "node": "8.6.0"
+  }
+}
