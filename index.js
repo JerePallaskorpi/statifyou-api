@@ -2,13 +2,9 @@ const express = require('express');
 const request = require('request');
 const querystring = require('querystring');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 app.use(cors());
-
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
 
 const redirectUri = process.env.REDIRECT_URI || 'http://localhost:8888/api/callback';
 
@@ -24,6 +20,8 @@ app.get('/api/login', (req, res) => {
 
 app.get('/api/callback', (req, res) => {
     const code = req.query.code || null;
+    const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;
+    const spotifyClientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     const authOptions = {
         url: 'https://accounts.spotify.com/api/token',
         form: {
@@ -32,7 +30,8 @@ app.get('/api/callback', (req, res) => {
             grant_type: 'authorization_code',
         },
         headers: {
-            Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(`${spotifyClientId}:${spotifyClientSecret}`)
+                .toString('base64')}`,
         },
         json: true,
     };
@@ -41,10 +40,6 @@ app.get('/api/callback', (req, res) => {
         const uri = process.env.FRONTEND_URI || 'http://localhost:3000';
         res.redirect(`${uri}?access_token=${accessToken}`);
     });
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(`${__dirname}/client/build/index.html`));
 });
 
 const port = process.env.PORT || 8888;

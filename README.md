@@ -1,3 +1,3 @@
-## Statifyou
-Track your spotify plays.
-
+## Statifyou Api
+Server for statifyou.
+https://github.com/JerePallaskorpi/statifyou
